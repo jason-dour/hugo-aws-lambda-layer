@@ -28,7 +28,7 @@ fi
 # Prepare and build the zip file.
 mkdir -p bin && \
     mv hugo bin && \
-    zip -r9 ../hugo-${HUGO_VERSION}.zip bin/
+    zip -r9 ../hugo.zip bin/
 if [ $? -ne 0 ]; then
     echo "error: could not build layer zip file."
     exit 3
