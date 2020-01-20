@@ -2,6 +2,8 @@
 
 AWS Lambda Layer for Hugo from gohugo.io.
 
+It is intended to be functional in all runtimes.  It has been tested in `go1.x` and `python3.8` so far.
+
 ## Building the Layer
 
 1. Make certain you have the `lambci/lambda:build-go1.x` Docker image needed to build the layer.
