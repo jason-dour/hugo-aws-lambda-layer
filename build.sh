@@ -3,7 +3,7 @@
 # Script to build the Hugo layer.
 
 # Set the version to be built.
-HUGO_VERSION="0.62.2"
+HUGO_VERSION="0.80.0"
 
 # Download URL for the source release.
 HUGO_URL="https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz"
