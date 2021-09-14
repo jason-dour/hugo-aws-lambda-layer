@@ -25,10 +25,14 @@ It is intended to be functional in all runtimes.  It has been tested in `go1.x` 
     build.sh
     ```
 
-1. Then execute the docker `lambci/lambda:build-go1.x` image to run the build script.
+1. ~~Then execute the docker `lambci/lambda:build-go1.x` image to run the build script.~~
+
+    ~~`docker run --rm -it -v `pwd`:/tmp/repo --entrypoint /bin/bash lambci/lambda:build-go1.x /tmp/repo/build.sh`~~
+
+    Using the `golang:1.17.1-alpine3.14` image, run the build script (can't use `lamci/lambda` anymore due to golang version requirement):
 
     ``` shell
-    docker run --rm -it -v `pwd`:/tmp/repo --entrypoint /bin/bash lambci/lambda:build-go1.x /tmp/repo/build.sh
+    docker run --rm -it -v `pwd`:tmp/repo --entrypoint /bin/bash golang:1.17.1-alpine3.14 /tmp/repo/build.sh
     ```
 
 ## Deploy the Layer

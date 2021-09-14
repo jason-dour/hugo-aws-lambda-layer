@@ -2,11 +2,21 @@
 #
 # Script to build the Hugo layer.
 
+# Prep for build.
+CGO_ENABLED=1
+GOOS=linux
+GOARCH=amd64
+
 # Set the version to be built.
-HUGO_VERSION="0.80.0"
+HUGO_VERSION="0.88.1"
 
 # Download URL for the source release.
 HUGO_URL="https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz"
+
+# Basic packages to perform the build.
+apk --no-cache add \
+    zip curl git gcc g++ \
+    musl-dev
 
 # Download the source.
 cd /tmp/repo && \
@@ -18,17 +28,15 @@ if [ $? -ne 0 ]; then
 fi
 
 # Compile Hugo.
-cd hugo-${HUGO_VERSION} && \
-    go build -tags 'extended'
+cd /tmp/repo/hugo-${HUGO_VERSION} && \
+    go build -ldflags '-extldflags "-fno-PIC -static"' -buildmode pie -tags 'extended osusergo netgo static_build'
 if [ $? -ne 0 ]; then
     echo "error: could not build hugo."
     exit 2
 fi
 
 # Prepare and build the zip file.
-mkdir -p bin && \
-    mv hugo bin && \
-    zip -r9 ../hugo.zip bin/
+zip -r9 ../hugo.zip bin/
 if [ $? -ne 0 ]; then
     echo "error: could not build layer zip file."
     exit 3
